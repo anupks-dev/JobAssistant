@@ -18,7 +18,6 @@ export class ResilientLlmClient implements LlmClient {
   ) {}
 
   public async complete(request: LlmRequest): Promise<LlmResult> {
-    await this.rateLimiter.acquire();
     let primaryFailures: number = 0;
     let useFallback: boolean = request.useFallbackModel === true;
     let lastError: Error | null = null;
@@ -34,6 +33,8 @@ export class ResilientLlmClient implements LlmClient {
         maxTokens: request.maxTokens,
         useFallbackModel: useFallback,
       };
+      // Every attempt counts against the account limit, retries included.
+      await this.rateLimiter.acquire();
       try {
         const result: LlmResult = await this.inner.complete(attemptRequest);
         this.recordUsage();

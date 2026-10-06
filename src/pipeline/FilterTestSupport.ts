@@ -83,6 +83,7 @@ export function makeJob(overrides: Partial<StoredJob>): StoredJob {
     salaryUsdMin: null,
     salaryUsdMax: null,
     filterNotes: null,
+    scoreDetails: null,
   };
   const merged: StoredJob = { ...job, ...overrides };
   return merged;

@@ -31,6 +31,7 @@ export interface JobRow {
   salary_usd_min: number | null;
   salary_usd_max: number | null;
   filter_notes: string | null;
+  score_details: string | null;
 }
 
 export interface SentJobRow {
@@ -98,4 +99,14 @@ export interface ApiUsageRow {
   source: string;
   day: string;
   call_count: number;
+}
+
+export interface JobOutputRow {
+  id: number;
+  job_id: number;
+  run_id: number | null;
+  cover_letter: string | null;
+  resume_tweaks: string | null;
+  prompt_versions: string;
+  created_at: string;
 }

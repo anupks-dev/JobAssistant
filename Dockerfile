@@ -20,5 +20,6 @@ COPY --from=builder --chown=node:node /app/node_modules ./node_modules
 COPY --from=builder --chown=node:node /app/dist ./dist
 COPY --chown=node:node package.json ./
 COPY --chown=node:node config ./config
+COPY --chown=node:node resources ./resources
 USER node
 CMD ["node", "dist/main.js"]

@@ -24,4 +24,13 @@ describe("ErrorSanitizer", () => {
     expect(cleaned).toContain("app_id=[redacted]");
     expect(cleaned).toContain("app_key=[redacted]");
   });
+
+  it("strips Authorization header values and nvapi tokens", () => {
+    const sanitizer: ErrorSanitizer = new ErrorSanitizer();
+    const raw: string = "401 Authorization: fake-header-value from key nvapi-FAKEtoken_123-abc retry";
+    const cleaned: string = sanitizer.sanitize(raw);
+    expect(cleaned).not.toContain("fake-header-value");
+    expect(cleaned).not.toContain("nvapi-FAKEtoken_123-abc");
+    expect(cleaned).toContain("retry");
+  });
 });

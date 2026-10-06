@@ -4,3 +4,5 @@ data
 docs
 config
 .idea
+CLAUDE.md
+.env

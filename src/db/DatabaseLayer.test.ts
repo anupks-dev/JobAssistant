@@ -64,7 +64,7 @@ describe("database layer", () => {
   it("creates every table and can migrate twice", () => {
     const database: SqliteDatabase = openMemoryDatabase();
     database.migrate();
-    expect(database.getSchemaVersion()).toBe(2);
+    expect(database.getSchemaVersion()).toBe(3);
     const statement: Database.Statement<[], TableNameRow> = database.getConnection().prepare<[], TableNameRow>(
       "SELECT name FROM sqlite_master WHERE type = 'table' ORDER BY name ASC",
     );
@@ -94,7 +94,7 @@ describe("database layer", () => {
     databases.push(database);
     const mode: number = statSync(databasePath).mode & 0o777;
     expect(mode).toBe(0o600);
-    expect(database.getSchemaVersion()).toBe(2);
+    expect(database.getSchemaVersion()).toBe(3);
   });
 
   it("inserts new jobs and does not overwrite status or score", () => {
@@ -106,7 +106,7 @@ describe("database layer", () => {
     expect(created.skipped).toBe(0);
     const stored: StoredJob = jobs.findByStatus("new", 10)[0];
     jobs.updateStatus(stored.id, "rejected", "too junior");
-    jobs.saveScore(stored.id, 12, "weak match");
+    jobs.saveScore(stored.id, 12, "weak match", "{}");
     const again: UpsertJobsResult = jobs.upsertJobs([first]);
     expect(again.inserted).toBe(0);
     expect(again.skipped).toBe(1);

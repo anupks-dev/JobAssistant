@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { APIError } from "openai";
+import { ChatCompletionCreateParamsNonStreaming } from "openai/resources/chat/completions";
 import { ErrorSanitizer } from "../db/ErrorSanitizer";
 import { Clock } from "../fetchers/Clock";
 import { LlmClient, LlmRequest, LlmResult } from "./LlmClient";
@@ -18,7 +19,9 @@ interface NvidiaChatTemplateKwargs {
   enable_thinking: boolean;
 }
 
-interface NvidiaExtraBody {
+// The SDK serializes the whole params object as the request body, so an extended interface
+// carries the extra field through without any cast to any.
+interface NvidiaCompletionParams extends ChatCompletionCreateParamsNonStreaming {
   chat_template_kwargs: NvidiaChatTemplateKwargs;
 }
 
@@ -51,24 +54,21 @@ export class NvidiaLlmClient implements LlmClient {
     const model: string = this.selectModel(useFallback);
     const startedAtMs: number = this.clock.now().getTime();
     const client: OpenAI = this.clientFactory(this.apiKey, this.settings.baseUrl, this.settings.timeoutSeconds * 1000);
-    const extraBody: NvidiaExtraBody = {
+    const params: NvidiaCompletionParams = {
+      model: model,
+      temperature: request.temperature,
+      max_tokens: request.maxTokens,
+      messages: [
+        { role: "system", content: request.systemPrompt },
+        { role: "user", content: request.userPrompt },
+      ],
+      stream: false,
       chat_template_kwargs: {
         enable_thinking: false,
       },
     };
     try {
-      const response: NvidiaCompletionResponse = await client.chat.completions.create({
-        model: model,
-        temperature: request.temperature,
-        max_tokens: request.maxTokens,
-        messages: [
-          { role: "system", content: request.systemPrompt },
-          { role: "user", content: request.userPrompt },
-        ],
-        stream: false,
-        // The SDK forwards unknown fields when passed through extra_body.
-        extra_body: extraBody,
-      }) as NvidiaCompletionResponse;
+      const response: NvidiaCompletionResponse = await client.chat.completions.create(params) as NvidiaCompletionResponse;
       const endedAtMs: number = this.clock.now().getTime();
       const choice: NvidiaCompletionChoice | undefined = response.choices !== undefined && response.choices.length > 0
         ? response.choices[0]

@@ -4,6 +4,7 @@ import { dirname } from "path";
 import { FilterColumnsMigration } from "./migrations/FilterColumnsMigration";
 import { InitialSchemaMigration } from "./migrations/InitialSchemaMigration";
 import { Migration } from "./migrations/Migration";
+import { ScoringMigration } from "./migrations/ScoringMigration";
 import { MigrationRunner } from "./MigrationRunner";
 
 // Opens SQLite, turns on the safety pragmas, and applies migrations before any repository runs.
@@ -19,6 +20,7 @@ export class SqliteDatabase {
     const migrations: Migration[] = [];
     migrations.push(new InitialSchemaMigration());
     migrations.push(new FilterColumnsMigration());
+    migrations.push(new ScoringMigration());
     this.migrationRunner = new MigrationRunner(this.connection, migrations);
     this.migrationRunner.applyPending();
   }

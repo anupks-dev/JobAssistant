@@ -14,7 +14,8 @@ export class PromptLoader {
     this.loadDirectory(promptsDirectory);
   }
 
-  public render(name: string, placeholders: Record<string, string>): string {
+  // literalTokens are text such as {{NAME}} that must reach the model unchanged; they are not placeholders to fill.
+  public render(name: string, placeholders: Record<string, string>, literalTokens: string[] = []): string {
     const prompt: LoadedPrompt | undefined = this.prompts.get(name);
     if (prompt === undefined) {
       throw new Error("Prompt template is missing: " + name);
@@ -29,7 +30,11 @@ export class PromptLoader {
       }
       rendered = rendered.split(token).join(placeholders[key]);
     }
-    if (rendered.indexOf("{{") >= 0) {
+    let unreplaced: string = rendered;
+    for (let index: number = 0; index < literalTokens.length; index++) {
+      unreplaced = unreplaced.split(literalTokens[index]).join("");
+    }
+    if (unreplaced.indexOf("{{") >= 0) {
       throw new Error("Prompt template still has unreplaced placeholders.");
     }
     return rendered;

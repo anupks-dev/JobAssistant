@@ -45,6 +45,9 @@ const INSERT_JOB_SQL: string = "INSERT OR IGNORE INTO jobs ("
   + ")";
 
 // Inserts ignore an existing source id so a later fetch cannot reset status or score.
+// score_details holds JSON; a job is final when its details say unscoredFinal is true.
+const NOT_UNSCORED_FINAL: string = "(score_details IS NULL OR COALESCE(json_extract(score_details, '$.unscoredFinal'), 0) = 0)";
+
 export class SqliteJobRepository implements JobRepository {
   public constructor(private readonly connection: Database.Database) {}
 
@@ -104,18 +107,67 @@ export class SqliteJobRepository implements JobRepository {
     }
   }
 
-  public saveScore(jobId: number, score: number, reason: string): void {
-    if (score < 0 || score > 100) {
-      throw new Error("Score must be between 0 and 100.");
+  public saveScore(jobId: number, score: number, reason: string, details: string): void {
+    if (!Number.isInteger(score) || score < 0 || score > 100) {
+      throw new Error("Score must be a whole number between 0 and 100.");
     }
-    const statement: Database.Statement<[number, string, number], unknown> = this.connection.prepare<
-      [number, string, number],
+    const statement: Database.Statement<[number, string, string, number], unknown> = this.connection.prepare<
+      [number, string, string, number],
       unknown
-    >("UPDATE jobs SET score = ?, score_reason = ? WHERE id = ?");
-    const outcome: Database.RunResult = statement.run(score, reason, jobId);
+    >("UPDATE jobs SET score = ?, score_reason = ?, score_details = ? WHERE id = ?");
+    const outcome: Database.RunResult = statement.run(score, reason, details, jobId);
     if (outcome.changes === 0) {
       throw new Error("Job not found.");
     }
+  }
+
+  public saveUnscoredNote(jobId: number, details: string): void {
+    const statement: Database.Statement<[string, number], unknown> = this.connection.prepare<
+      [string, number],
+      unknown
+    >("UPDATE jobs SET score_details = ? WHERE id = ? AND score IS NULL");
+    const outcome: Database.RunResult = statement.run(details, jobId);
+    if (outcome.changes === 0) {
+      throw new Error("Job not found or already scored.");
+    }
+  }
+
+  public findShortlistedUnscored(limit: number, includeUnscoredFinal: boolean = false): StoredJob[] {
+    const finalFilter: string = includeUnscoredFinal ? "" : " AND " + NOT_UNSCORED_FINAL;
+    const statement: Database.Statement<[number], JobRow> = this.connection.prepare<[number], JobRow>(
+      "SELECT * FROM jobs WHERE status = 'shortlisted' AND score IS NULL" + finalFilter + " ORDER BY id ASC LIMIT ?",
+    );
+    return this.mapJobRows(statement.all(limit));
+  }
+
+  public countUnscoredFinal(): number {
+    const statement: Database.Statement<[], { total: number }> = this.connection.prepare<[], { total: number }>(
+      "SELECT COUNT(*) AS total FROM jobs WHERE status = 'shortlisted' AND score IS NULL AND NOT (" + NOT_UNSCORED_FINAL + ")",
+    );
+    const row: { total: number } | undefined = statement.get();
+    return row === undefined ? 0 : row.total;
+  }
+
+  public findScoredUnsent(limit: number): StoredJob[] {
+    const statement: Database.Statement<[number], JobRow> = this.connection.prepare<[number], JobRow>(
+      "SELECT * FROM jobs WHERE score IS NOT NULL AND status IN ('shortlisted', 'scored')"
+      + " AND NOT EXISTS (SELECT 1 FROM sent_jobs WHERE sent_jobs.job_id = jobs.id)"
+      + " ORDER BY id ASC LIMIT ?",
+    );
+    return this.mapJobRows(statement.all(limit));
+  }
+
+  // Scored jobs keep status 'shortlisted' until the Telegram stage marks them sent.
+  // A job with no posted date is aged by the time we fetched it.
+  public findRankingPool(sinceIso: string, minScore: number): StoredJob[] {
+    const statement: Database.Statement<[number, string], JobRow> = this.connection.prepare<[number, string], JobRow>(
+      "SELECT * FROM jobs WHERE score IS NOT NULL AND score >= ?"
+      + " AND status IN ('shortlisted', 'scored')"
+      + " AND COALESCE(posted_at, fetched_at) >= ?"
+      + " AND NOT EXISTS (SELECT 1 FROM sent_jobs WHERE sent_jobs.job_id = jobs.id)"
+      + " ORDER BY id ASC",
+    );
+    return this.mapJobRows(statement.all(minScore, sinceIso));
   }
 
   public findById(jobId: number): StoredJob | null {
@@ -159,7 +211,7 @@ export class SqliteJobRepository implements JobRepository {
     const statement: Database.Statement<[], unknown> = this.connection.prepare<[], unknown>(
       "UPDATE jobs SET status = 'new', rejection_reason = NULL, region_eligibility = NULL,"
       + " is_bangalore_gcc = 0, salary_usd_min = NULL, salary_usd_max = NULL, filter_notes = NULL"
-      + " WHERE status IN ('rejected', 'shortlisted', 'scored')",
+      + " WHERE status = 'rejected' OR (status = 'shortlisted' AND score IS NULL)",
     );
     statement.run();
   }
@@ -312,6 +364,7 @@ export class SqliteJobRepository implements JobRepository {
       salaryUsdMin: row.salary_usd_min,
       salaryUsdMax: row.salary_usd_max,
       filterNotes: row.filter_notes,
+      scoreDetails: row.score_details,
     };
     return job;
   }

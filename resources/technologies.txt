@@ -1,0 +1,394 @@
+# Technology vocabulary used to check that generated text only names technologies the candidate has.
+# One technology per line. The first name is the canonical one; aliases follow, separated by |.
+# Matching is case-insensitive and whole-word. Prefix a name with = to make it case-sensitive
+# (needed for names that are also plain English words). Names of one or two letters are always case-sensitive.
+# Add your own lines freely; this file holds no personal data.
+
+# Languages
+Java
+JavaScript|JS|ECMAScript
+TypeScript|TS
+Python
+=Go|Golang
+C#|CSharp
+C++|CPP
+=C
+=R
+Kotlin
+Scala
+=Ruby
+PHP
+=Swift
+Objective-C
+=Rust
+=Dart
+Perl
+Groovy
+Elixir
+Erlang
+Haskell
+Clojure
+Lua
+Bash|Shell scripting
+PowerShell
+SQL
+PL/SQL
+T-SQL
+COBOL
+Solidity
+HTML|HTML5
+CSS|CSS3
+SASS|SCSS
+GraphQL
+WebAssembly|WASM
+
+# Backend frameworks and runtimes
+Node.js|NodeJS|Node
+Deno
+=Bun
+NestJS|Nest.js
+Express.js|ExpressJS|=Express
+Fastify
+Koa
+Hapi
+Spring Boot|SpringBoot
+Spring Framework|Spring MVC|Spring Core
+Spring Cloud
+Spring Security
+Spring Data
+Spring Batch
+Hibernate
+JPA|Jakarta Persistence
+MyBatis
+Quarkus
+Micronaut
+Vert.x|Vertx
+Dropwizard
+Jakarta EE|Java EE|J2EE
+Servlet
+Django
+Flask
+FastAPI
+Celery
+.NET|dotnet|.NET Core
+ASP.NET|ASP.NET Core
+Entity Framework
+Ruby on Rails|Rails
+Sinatra
+Laravel
+Symfony
+=Gin
+=Echo
+Ktor
+Akka
+Play Framework
+gRPC
+tRPC
+Prisma
+TypeORM
+Sequelize
+Mongoose
+Knex
+SQLAlchemy
+Lombok
+Maven
+Gradle
+npm
+Yarn
+pnpm
+Webpack
+Vite
+Babel
+
+# Frontend
+React|React.js|ReactJS
+React Native
+Next.js|NextJS
+Angular|AngularJS
+Vue.js|VueJS|Vue
+Nuxt
+Svelte
+Redux
+jQuery
+Tailwind CSS|Tailwind
+Bootstrap
+Electron
+Flutter
+Storybook
+
+# Relational databases
+PostgreSQL|Postgres|PG|Postgre
+MySQL
+MariaDB
+Oracle Database|Oracle DB|=Oracle
+Microsoft SQL Server|SQL Server|MSSQL
+SQLite
+IBM Db2|Db2
+CockroachDB
+Amazon Aurora|=Aurora
+Amazon RDS|AWS RDS|RDS
+Snowflake
+Amazon Redshift|Redshift
+Google BigQuery|BigQuery
+ClickHouse
+Teradata
+Vertica
+
+# NoSQL, search, cache
+MongoDB|Mongo
+Redis
+Memcached
+Cassandra|Apache Cassandra
+ScyllaDB
+Amazon DynamoDB|AWS DynamoDB|DynamoDB
+Couchbase
+CouchDB
+Neo4j
+Elasticsearch|Elastic Search
+OpenSearch
+Apache Solr|Solr
+Apache Lucene|Lucene
+HBase
+Firestore|Cloud Firestore
+Cosmos DB|CosmosDB|Azure Cosmos DB
+InfluxDB
+TimescaleDB
+Pinecone
+
+# Messaging and streaming
+Apache Kafka|Kafka
+RabbitMQ
+Amazon SQS|AWS SQS|SQS
+Amazon SNS|AWS SNS|SNS
+Amazon Kinesis|Kinesis
+Amazon EventBridge|EventBridge
+Google Pub/Sub|Pub/Sub|PubSub
+Azure Service Bus|Service Bus
+Azure Event Hubs|Event Hubs
+Apache ActiveMQ|ActiveMQ
+Apache Pulsar|Pulsar
+NATS
+ZeroMQ
+IBM MQ
+JMS
+Apache Flink|Flink
+Apache Spark|=Spark
+Apache Storm
+Kafka Streams
+Kafka Connect
+Debezium
+Apache Airflow|Airflow
+Apache Beam|=Beam
+Apache Hadoop|Hadoop
+Apache Hive|=Hive
+dbt
+
+# Cloud providers and services
+Amazon Web Services|AWS
+Google Cloud Platform|Google Cloud|GCP
+Microsoft Azure|Azure
+DigitalOcean
+Oracle Cloud|OCI
+IBM Cloud
+Alibaba Cloud
+Cloudflare
+Heroku
+Vercel
+Netlify
+AWS Lambda|=Lambda
+Amazon EC2|AWS EC2|EC2
+Amazon S3|AWS S3|S3
+Amazon ECS|AWS ECS|ECS
+Amazon EKS|AWS EKS|EKS
+AWS Fargate|Fargate
+Amazon CloudFront|CloudFront
+Amazon API Gateway|API Gateway
+Amazon Cognito|Cognito
+AWS Step Functions|Step Functions
+Amazon CloudWatch|CloudWatch
+AWS CloudFormation|CloudFormation
+AWS CDK
+AWS IAM
+AWS Glue
+Amazon Athena|=Athena
+AWS Secrets Manager
+Amazon ElastiCache|ElastiCache
+Amazon SES
+Google Kubernetes Engine|GKE
+Google Cloud Run|Cloud Run
+Google Cloud Functions|Cloud Functions
+Google Cloud Storage|GCS
+Azure Functions
+Azure DevOps
+Azure Kubernetes Service|AKS
+Firebase
+Supabase
+
+# DevOps, infrastructure, CI/CD
+Docker
+Kubernetes|K8s
+Helm
+Terraform
+Pulumi
+Ansible
+=Chef
+=Puppet
+Vagrant
+Jenkins
+GitHub Actions
+GitLab CI|GitLab CI/CD
+CircleCI
+Travis CI
+Bamboo
+TeamCity
+Argo CD|ArgoCD
+Argo Workflows
+=Flux
+Spinnaker
+Tekton
+Git
+GitHub
+GitLab
+Bitbucket
+SonarQube
+Nexus
+Artifactory
+Istio
+Envoy
+Linkerd
+=Consul
+=Vault|HashiCorp Vault
+Nginx
+Apache HTTP Server|Apache HTTPD
+HAProxy
+Linux
+Ubuntu
+Unix
+OpenShift
+Rancher
+Podman
+Serverless Framework
+CI/CD
+
+# Observability
+Prometheus
+Grafana
+Datadog
+New Relic
+Splunk
+Dynatrace
+ELK|ELK Stack
+Logstash
+Kibana
+Jaeger
+Zipkin
+OpenTelemetry|OTel
+=Sentry
+PagerDuty
+Loki
+Fluentd
+AppDynamics
+
+# Testing
+JUnit
+TestNG
+Mockito
+Jest
+Mocha
+Chai
+Vitest
+Cypress
+Playwright
+Selenium
+Postman
+Cucumber
+Testcontainers
+WireMock
+Gatling
+JMeter
+k6
+pytest
+RestAssured|REST Assured
+SoapUI
+=Pact
+=Karate
+
+# Protocols, formats, API styles
+=REST|RESTful|REST API
+SOAP
+WebSocket|WebSockets
+OAuth|OAuth2|OAuth 2.0
+OpenID Connect|OIDC
+SAML
+JWT
+LDAP
+Kerberos
+TLS|SSL
+HTTP/2
+MQTT
+AMQP
+Protocol Buffers|Protobuf
+Apache Avro|Avro
+Apache Parquet|Parquet
+JSON
+XML
+YAML
+OpenAPI|Swagger
+AsyncAPI
+TCP/IP
+SSH
+SFTP
+FIX protocol|=FIX
+ISO 8583
+SWIFT messaging
+Webhooks
+
+# Architecture styles and tooling
+Microservices
+Event Sourcing
+CQRS
+Domain-Driven Design|DDD
+Serverless
+Service Mesh
+Hexagonal Architecture
+Event-Driven Architecture|EDA
+Saga pattern
+Kong
+Keycloak
+Auth0
+Okta
+Apache Camel
+MuleSoft
+WSO2
+IBM WebSphere|WebSphere
+WebLogic
+JBoss|WildFly
+Tomcat|Apache Tomcat
+Jetty
+Liquibase
+Flyway
+Swagger UI
+Jira
+Confluence
+Figma
+Lucidchart
+PlantUML
+Terraform Cloud
+Backstage
+LaunchDarkly
+Stripe
+Twilio
+SendGrid
+Salesforce
+SAP
+ServiceNow
+Tableau
+Power BI
+Apache NiFi|NiFi
+Kubeflow
+MLflow
+TensorFlow
+PyTorch
+OpenAI API|OpenAI
+LangChain
+Hugging Face

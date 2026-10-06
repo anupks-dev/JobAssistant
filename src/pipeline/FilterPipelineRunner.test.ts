@@ -117,7 +117,7 @@ describe("FilterPipelineRunner", () => {
     opened.database.close();
   });
 
-  it("leaves sent jobs in place when reevaluating", () => {
+  it("leaves sent and scored jobs in place when reevaluating", () => {
     const opened = openRunner(loadConfig());
     opened.jobs.upsertJobs([
       posting("greenhouse", "sent", "Sent Co", "Tech Lead", "Remote - Worldwide", NOW),
@@ -137,7 +137,7 @@ describe("FilterPipelineRunner", () => {
       }
     }
     opened.jobs.updateStatus(sentId, "sent");
-    opened.jobs.updateStatus(scoredId, "scored");
+    opened.jobs.saveScore(scoredId, 80, "fits", "{}");
     const factory: RepositoryFactory = new RepositoryFactory(opened.database);
     const runId: number = factory.runs().startRun("manual");
     const sentJob: StoredJob | null = opened.jobs.findById(sentId);
@@ -146,7 +146,9 @@ describe("FilterPipelineRunner", () => {
     const summary: FilterRunSummary = opened.runner.run(true);
     expect(opened.jobs.findById(sentId)?.status).toBe("sent");
     expect(opened.jobs.findById(scoredId)?.status).toBe("shortlisted");
-    expect(summary.shortlisted).toBe(1);
+    expect(opened.jobs.findById(scoredId)?.score).toBe(80);
+    expect(summary.evaluated).toBe(1);
+    expect(summary.shortlisted).toBe(0);
     expect(countFor(summary, "title_excluded")).toBe(1);
     opened.database.close();
   });

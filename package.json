@@ -12,11 +12,16 @@
     "test": "vitest run",
     "profile:build": "tsx --env-file=.env src/profile/cli/buildProfile.ts",
     "profile:approve": "tsx --env-file=.env src/profile/cli/approveProfile.ts",
+    "profile:skills": "tsx --env-file=.env src/profile/cli/buildSkillsMatrix.ts",
+    "profile:skills:approve": "tsx --env-file=.env src/profile/cli/approveSkillsMatrix.ts",
     "fetch:once": "tsx --env-file=.env src/fetchers/cli/fetchOnce.ts",
     "boards:probe": "tsx --env-file=.env src/fetchers/cli/probeBoards.ts",
     "filter:once": "tsx --env-file=.env src/pipeline/cli/filterOnce.ts",
     "filter:sample": "tsx --env-file=.env src/pipeline/cli/filterSample.ts",
     "filter:explain": "tsx --env-file=.env src/pipeline/cli/filterExplain.ts",
+    "score:once": "tsx --env-file=.env src/scoring/cli/scoreOnce.ts",
+    "score:outputs": "tsx --env-file=.env src/outputs/cli/scoreOutputs.ts",
+    "score:show": "tsx --env-file=.env src/scoring/cli/scoreShow.ts",
     "llm:smoke": "tsx --env-file=.env src/llm/cli/llmSmoke.ts"
   },
   "pnpm": {
