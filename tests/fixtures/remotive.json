@@ -1,0 +1,18 @@
+{
+  "00-warning": "This notice is not a job.",
+  "0-legal-notice": "This notice is not a job.",
+  "job-count": 1,
+  "jobs": [
+    {
+      "id": 20411,
+      "url": "https://remotive.com/remote-jobs/software-dev/example-20411",
+      "title": "Backend Engineer",
+      "company_name": "Northwind",
+      "tags": ["java"],
+      "publication_date": "2026-09-30T13:15:26",
+      "candidate_required_location": "Worldwide",
+      "salary": "$120,000 - $160,000",
+      "description": "<p>Ship services.</p><style>.hidden{}</style>"
+    }
+  ]
+}

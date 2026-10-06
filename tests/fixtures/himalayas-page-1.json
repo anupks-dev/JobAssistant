@@ -1,0 +1,19 @@
+{
+  "jobs": [
+    {
+      "title": "Support Specialist",
+      "companyName": "Peak Labs",
+      "minSalary": 50,
+      "maxSalary": 80,
+      "salaryPeriod": "hourly",
+      "currency": "USD",
+      "locationRestrictions": ["Worldwide"],
+      "description": "<p>Help customers.</p><script>nope</script>",
+      "pubDate": 1759402381,
+      "applicationLink": "https://himalayas.app/companies/peak-labs/jobs/support-specialist",
+      "guid": "https://himalayas.app/companies/peak-labs/jobs/support-specialist"
+    }
+  ],
+  "nextCursor": "cursor-page-2",
+  "limit": 20
+}

@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "slug": "remote-backend-example",
+      "company_name": "Example GmbH",
+      "title": "Backend Engineer",
+      "description": "&amp;lt;p&amp;gt;Remote role.&amp;lt;/p&amp;gt;&amp;lt;script&amp;gt;bad&amp;lt;/script&amp;gt;",
+      "remote": true,
+      "url": "https://www.arbeitnow.com/jobs/remote-backend-example",
+      "tags": ["java"],
+      "location": "Germany",
+      "created_at": 1759402381
+    },
+    {
+      "slug": "onsite-role-example",
+      "company_name": "Office Co",
+      "title": "Office Engineer",
+      "description": "&amp;lt;p&amp;gt;Office role.&amp;lt;/p&amp;gt;",
+      "remote": false,
+      "url": "https://www.arbeitnow.com/jobs/onsite-role-example",
+      "tags": [],
+      "location": "Berlin",
+      "created_at": 1759402381
+    }
+  ],
+  "links": {
+    "next": "https://www.arbeitnow.com/api/job-board-api?page=2"
+  },
+  "meta": {
+    "current_page": 1
+  }
+}

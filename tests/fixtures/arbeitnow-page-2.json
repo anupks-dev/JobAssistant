@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "slug": "remote-frontend-example",
+      "company_name": "Example GmbH",
+      "title": "Frontend Engineer",
+      "description": "&amp;lt;p&amp;gt;Build the UI.&amp;lt;/p&amp;gt;",
+      "remote": true,
+      "url": "https://www.arbeitnow.com/jobs/remote-frontend-example",
+      "tags": ["javascript"],
+      "location": "Remote",
+      "created_at": 1759315981
+    }
+  ],
+  "links": {
+    "next": null
+  },
+  "meta": {
+    "current_page": 2
+  }
+}

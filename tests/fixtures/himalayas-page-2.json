@@ -1,0 +1,19 @@
+{
+  "jobs": [
+    {
+      "title": "Data Engineer",
+      "companyName": "Ridge",
+      "minSalary": null,
+      "maxSalary": null,
+      "salaryPeriod": "annual",
+      "currency": null,
+      "locationRestrictions": ["Germany"],
+      "description": "<p>Model data.</p>",
+      "pubDate": 1759315981,
+      "applicationLink": "https://himalayas.app/companies/ridge/jobs/data-engineer",
+      "guid": "https://himalayas.app/companies/ridge/jobs/data-engineer"
+    }
+  ],
+  "nextCursor": null,
+  "limit": 20
+}

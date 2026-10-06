@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <item>
+      <title>Twikey: Senior Java Developer</title>
+      <region>Anywhere in the World</region>
+      <country>Anywhere in the World</country>
+      <description>&lt;p&gt;Build APIs.&lt;/p&gt;&lt;script&gt;bad&lt;/script&gt;</description>
+      <pubDate>Fri, 02 Oct 2026 12:00:00 +0000</pubDate>
+      <guid>https://weworkremotely.com/remote-jobs/twikey-senior-java-developer</guid>
+      <link>https://weworkremotely.com/remote-jobs/twikey-senior-java-developer</link>
+    </item>
+    <item>
+      <title>Acme: Platform Engineer</title>
+      <region>USA</region>
+      <country>USA</country>
+      <description>&lt;p&gt;Run the platform.&lt;/p&gt;</description>
+      <pubDate>Thu, 01 Oct 2026 12:00:00 +0000</pubDate>
+      <guid>https://weworkremotely.com/remote-jobs/acme-platform-engineer</guid>
+      <link>https://weworkremotely.com/remote-jobs/acme-platform-engineer</link>
+    </item>
+  </channel>
+</rss>

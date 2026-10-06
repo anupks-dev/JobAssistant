@@ -1,0 +1,20 @@
+[
+  {
+    "last_updated": 1,
+    "legal": "Please see the legal notice."
+  },
+  {
+    "id": 1137460,
+    "epoch": 1759402381,
+    "date": "2026-10-02T12:53:01+00:00",
+    "company": "Example Labs",
+    "position": "Senior Backend Engineer",
+    "tags": ["java", "remote"],
+    "description": "<p>Build APIs.</p><script>alert(1)</script>",
+    "location": "",
+    "salary_min": 120000,
+    "salary_max": 160000,
+    "apply_url": "https://remoteok.com/l/1137460",
+    "url": "https://remoteok.com/remote-jobs/1137460"
+  }
+]

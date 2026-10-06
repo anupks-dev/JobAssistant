@@ -1,0 +1,43 @@
+{
+  "name": "jobagent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nightly job search agent: fetch, rank, cover letters, Telegram delivery",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "dev": "tsx --env-file=.env src/main.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "profile:build": "tsx --env-file=.env src/profile/cli/buildProfile.ts",
+    "profile:approve": "tsx --env-file=.env src/profile/cli/approveProfile.ts",
+    "fetch:once": "tsx --env-file=.env src/fetchers/cli/fetchOnce.ts",
+    "boards:probe": "tsx --env-file=.env src/fetchers/cli/probeBoards.ts",
+    "filter:once": "tsx --env-file=.env src/pipeline/cli/filterOnce.ts",
+    "filter:sample": "tsx --env-file=.env src/pipeline/cli/filterSample.ts",
+    "filter:explain": "tsx --env-file=.env src/pipeline/cli/filterExplain.ts",
+    "llm:smoke": "tsx --env-file=.env src/llm/cli/llmSmoke.ts"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3"
+    ]
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "cheerio": "^1.2.0",
+    "mammoth": "^1.13.0",
+    "openai": "^7.27.0",
+    "pino": "^10.3.1",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  }
+}

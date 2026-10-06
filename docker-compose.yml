@@ -1,0 +1,29 @@
+# No "ports" section on purpose: the bot uses Telegram long polling,
+# so nothing needs to be reachable from outside.
+services:
+  jobagent:
+    build: .
+    container_name: jobagent
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - TZ=Asia/Kolkata
+    user: node
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    cpus: 0.5
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    networks:
+      - jobagent_net
+
+networks:
+  jobagent_net:
+    driver: bridge
